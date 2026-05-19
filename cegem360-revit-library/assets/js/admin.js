@@ -23,7 +23,11 @@
             fd.append('action', 'crl_upload_file'); fd.append('nonce', CRL_ADMIN.nonce); fd.append('file', file);
             $.ajax({ url: CRL_ADMIN.ajaxUrl, type: 'POST', data: fd, processData: false, contentType: false })
                 .done(function(){ next(); })
-                .fail(function(xhr){ $status.text((xhr.responseJSON && xhr.responseJSON.data.message) || CRL_ADMIN.i18n.error); });
+                .fail(function(xhr){
+                    var msg = (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) || CRL_ADMIN.i18n.error;
+                    $status.append(' ' + file.name + ': ' + msg + '.');
+                    next();
+                });
         }
         next();
     });
