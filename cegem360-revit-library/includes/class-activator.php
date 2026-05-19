@@ -66,7 +66,8 @@ class CRL_Activator {
 
         $htaccess = $private . '/.htaccess';
         if ( ! file_exists( $htaccess ) ) {
-            file_put_contents( $htaccess, "Deny from all\n" );
+            $htaccess_contents = "<IfModule !authz_core_module>\nDeny from all\n</IfModule>\n<IfModule authz_core_module>\nRequire all denied\n</IfModule>\n";
+            file_put_contents( $htaccess, $htaccess_contents );
         }
 
         $index = $private . '/index.php';

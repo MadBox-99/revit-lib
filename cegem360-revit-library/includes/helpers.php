@@ -49,8 +49,11 @@ function crl_get_client_ip() {
 }
 
 function crl_is_valid_phone( $phone ) {
+    if ( ! is_string( $phone ) ) {
+        return false;
+    }
     $digits = preg_replace( '/[^0-9]/', '', $phone );
-    return strlen( $digits ) >= 6 && preg_match( '/^[\d\s+\-\(\)]+$/', $phone );
+    return strlen( $digits ) >= 6 && (bool) preg_match( '/^[\d\s+\-\(\)]+$/', $phone );
 }
 
 function crl_format_bytes( $bytes, $precision = 2 ) {
