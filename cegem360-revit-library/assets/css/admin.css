@@ -1,0 +1,8 @@
+.crl-zip-info, .crl-upload { background:#fff; border:1px solid #ccd0d4; padding:1rem 1.25rem; margin:1rem 0; }
+.crl-zip-info h2, .crl-upload h2 { margin-top: 0; }
+.crl-zip-info ul { list-style:none; padding:0; margin:0 0 0.5rem; }
+.crl-zip-info li { padding: 0.25rem 0; }
+#crl-upload-status { margin-top: 0.5rem; color:#555; }
+.crl-diagnostics { background:#f6f7f7; border:1px solid #ccd0d4; padding:1rem 1.25rem; margin: 1.5rem 0; }
+.crl-diagnostics .ok { color: #00a32a; font-weight:bold; }
+.crl-diagnostics .fail { color: #d63638; font-weight:bold; }
