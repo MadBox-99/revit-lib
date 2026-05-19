@@ -7,3 +7,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/../cegem360-revit-library/includes/helpers.php';
 require_once __DIR__ . '/../cegem360-revit-library/includes/class-tokens.php';
+require_once __DIR__ . '/../cegem360-revit-library/includes/class-rate-limiter.php';
