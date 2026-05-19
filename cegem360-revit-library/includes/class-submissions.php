@@ -5,7 +5,8 @@ class CRL_Submissions {
 
     public function create( $data ) {
         global $wpdb;
-        $now = current_time( 'mysql', true );
+        $now      = current_time( 'mysql', true );
+        $accepted = ! empty( $data['gdpr_accepted'] );
         $inserted = $wpdb->insert(
             crl_table_submissions(),
             array(
@@ -14,8 +15,8 @@ class CRL_Submissions {
                 'phone'            => $data['phone'],
                 'ip_address'       => $data['ip_address'] ?? '',
                 'user_agent'       => $data['user_agent'] ?? '',
-                'gdpr_accepted'    => $data['gdpr_accepted'] ? 1 : 0,
-                'gdpr_accepted_at' => $data['gdpr_accepted'] ? $now : null,
+                'gdpr_accepted'    => $accepted ? 1 : 0,
+                'gdpr_accepted_at' => $accepted ? $now : null,
                 'email_status'     => 'pending',
                 'created_at'       => $now,
             ),
