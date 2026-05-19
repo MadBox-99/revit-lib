@@ -35,6 +35,6 @@
             <label>Website <input type="text" name="crl_website" tabindex="-1" autocomplete="off"></label>
         </div>
         <button type="submit" class="crl-submit"><?php echo esc_html( $button_text ); ?></button>
-        <div class="crl-form-message" role="status" aria-live="polite"></div>
     </form>
+    <div class="crl-form-message" role="status" aria-live="polite"></div>
 </div>
