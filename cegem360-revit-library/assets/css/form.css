@@ -36,4 +36,3 @@
 .crl-form-message { padding: 1rem; border-radius: 4px; }
 .crl-form-message.is-success { background: #edfaef; border: 1px solid #00a32a; color: #00450c; }
 .crl-form-message.is-error { background: #fcf0f1; border: 1px solid #d63638; color: #5e0e10; }
-.crl-form.is-submitted .crl-form { display: none; }
