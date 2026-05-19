@@ -10,6 +10,14 @@ global $wpdb;
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}crl_tokens" );
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}crl_submissions" );
 
+// Read settings BEFORE deleting options.
+$delete_page = (bool) get_option( 'crl_delete_page_on_uninstall', 0 );
+$page_id     = (int) get_option( 'crl_landing_page_id', 0 );
+
+if ( $delete_page && $page_id ) {
+    wp_delete_post( $page_id, true );
+}
+
 $option_keys = array(
     'crl_notification_email','crl_sender_name','crl_sender_email','crl_link_validity_days','crl_rate_limit_per_hour',
     'crl_form_title','crl_form_intro','crl_form_success_message','crl_gdpr_text','crl_privacy_page_id','crl_primary_color',
@@ -19,11 +27,6 @@ $option_keys = array(
 );
 foreach ( $option_keys as $k ) {
     delete_option( $k );
-}
-
-if ( get_option( 'crl_delete_page_on_uninstall', 0 ) ) {
-    $page_id = (int) get_option( 'crl_landing_page_id', 0 );
-    if ( $page_id ) wp_delete_post( $page_id, true );
 }
 
 $uploads = wp_upload_dir();
