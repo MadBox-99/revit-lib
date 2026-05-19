@@ -23,7 +23,7 @@ class CRL_Mailer {
         $subject = strtr( $subject_tpl, $replace );
         $body    = strtr( $body_tpl, $replace );
 
-        return $this->send( $submission->email, $subject, $body );
+        return $this->send( $submission->email, $subject, $body, 'email-download-link.php' );
     }
 
     public function send_admin_notification( $submission ) {
@@ -43,16 +43,17 @@ class CRL_Mailer {
         $subject = strtr( $subject_tpl, $replace );
         $body    = strtr( $body_tpl, $replace );
 
-        return $this->send( $to, $subject, $body );
+        return $this->send( $to, $subject, $body, 'email-admin-notification.php' );
     }
 
     public function send_test( $to ) {
-        return $this->send( $to, __( 'Cegem360 Revit Library — teszt email', 'cegem360-revit-library' ), '<p>Ez egy teszt email a Revit elemtár pluginból.</p>' );
+        $body = '<p>' . esc_html__( 'Ez egy teszt email a Revit elemtár pluginból.', 'cegem360-revit-library' ) . '</p>';
+        return $this->send( $to, __( 'Cegem360 Revit Library — teszt email', 'cegem360-revit-library' ), $body, 'email-download-link.php' );
     }
 
-    private function send( $to, $subject, $body ) {
-        $from_email = crl_option( 'sender_email', get_option( 'admin_email' ) );
-        $from_name  = crl_option( 'sender_name', get_bloginfo( 'name' ) );
+    private function send( $to, $subject, $body, $template = 'email-download-link.php' ) {
+        $from_email = sanitize_email( crl_option( 'sender_email', get_option( 'admin_email' ) ) );
+        $from_name  = str_replace( array( "\r", "\n" ), '', crl_option( 'sender_name', get_bloginfo( 'name' ) ) );
 
         $headers = array(
             'Content-Type: text/html; charset=UTF-8',
@@ -60,7 +61,7 @@ class CRL_Mailer {
         );
 
         ob_start();
-        include CRL_PLUGIN_DIR . 'templates/email-download-link.php';
+        include CRL_PLUGIN_DIR . 'templates/' . $template;
         $html = ob_get_clean();
 
         return wp_mail( $to, $subject, $html, $headers );
